@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using Hangfire;
 using Microsoft.AspNetCore.Authorization;
@@ -11,6 +12,8 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using SendGrid;
+using SendGrid.Helpers.Mail;
 using TestingCoreIdentity.Data;
 using TestingCoreIdentity.Helpers;
 using TestingCoreIdentity.Models;
@@ -114,11 +117,10 @@ namespace TestingCoreIdentity.Controllers
                 _context.Add(post);
                 await _context.SaveChangesAsync();
 
-                //      BackgroundJob.Schedule(() => MMM.SendEmail("info@filspay.com", "New Post Added", "Post Content"), TimeSpan.FromMinutes(1));
+             
+                    BackgroundJob.Schedule(() => SendEmail(), TimeSpan.FromMinutes(1));
 
-                  //  BackgroundJob.Schedule(() => SendEmail, TimeSpan.FromMinutes(1));
-
-
+                
              
 
 
@@ -130,6 +132,21 @@ namespace TestingCoreIdentity.Controllers
         }
 
 
+
+         public void SendEmail()
+
+        { 
+        string htmlContent = "New post added to  the system";
+        var apiKey = "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";
+        var client = new SendGridClient(apiKey);
+        var from = new EmailAddress("mohamed.asnd@gmail.com", "Support");
+        var to = new EmailAddress("info@filspay.com");
+        var plainTextContent = Regex.Replace(htmlContent, "<[^>]*>", "");
+        var msg = MailHelper.CreateSingleEmail(from, to, "Post Added", plainTextContent, htmlContent);
+        var response = client.SendEmailAsync(msg);
+
+           
+        }
 
        
 
