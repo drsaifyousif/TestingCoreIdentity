@@ -1,0 +1,26 @@
+﻿@model string
+<div class="bg-primary panel-body"><h4>Create Role</h4></div>
+<div asp-validation-summary="All" class="text-danger"></div>
+<form asp-action="CreateAsync" method="post">
+    <div class="form-group">
+        Email :
+        <input name="Email" class="form-control" />
+
+       @* <select asp-for="Email" class="form-control" asp-items="ViewBag.UserId"></select>*@
+
+        <br />
+
+        Roles :
+        @*<input name="RoleName" class="form-control" />*@
+        <select id="Roles" name="RoleName" class="form-control">
+            <option>Admins</option>
+            <option>Sales</option>
+            <option>Support</option>
+
+        </select>
+
+
+    </div>
+    <button type="submit" class="btn btn-primary">Create</button>
+   
+</form>
