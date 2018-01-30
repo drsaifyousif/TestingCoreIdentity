@@ -59,10 +59,10 @@ namespace TestingCoreIdentity.Controllers
         {
      
             string htmlContent = "Hi";
-            var apiKey = "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";
+            var apiKey = "xxxxxxxxxxxxxxxxxxxxx";
             var client = new SendGridClient(apiKey);
-            var from = new EmailAddress("mohamed.asnd@gmail.com", "Support");
-            var to = new EmailAddress("info@filspay.com");
+            var from = new EmailAddress("from@website.com", "Support");
+            var to = new EmailAddress("to@website.com");
             var plainTextContent = Regex.Replace(htmlContent, "<[^>]*>", "");
             var msg = MailHelper.CreateSingleEmail(from, to, "Hi", plainTextContent, htmlContent);
             var response = client.SendEmailAsync(msg);

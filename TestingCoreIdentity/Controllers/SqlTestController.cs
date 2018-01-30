@@ -27,7 +27,7 @@ namespace TestingCoreIdentity.Controllers
         {
 
             var message = new MimeMessage();
-            message.From.Add(new MailboxAddress("Almahfal", "info@almahfal.org"));
+            message.From.Add(new MailboxAddress("Almahfal", "info@test.org"));
 
             message.To.Add(new MailboxAddress("Saif", "saif@filspay.com"));
             message.Subject = "Sending test email";
@@ -38,7 +38,7 @@ namespace TestingCoreIdentity.Controllers
 
             {
                 Client.Connect("smtp.gmail.com", 587, false);
-                Client.Authenticate("info@almahfal.org", "bazbomb521");
+                Client.Authenticate("info@test.org", "test");
                 Client.Send(message);
 
                 Client.Disconnect(true);
